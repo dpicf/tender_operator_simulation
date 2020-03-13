@@ -6,10 +6,6 @@ import time
 import pyperclip
 
 
-false_error_sed = 'Регистрация'
-true_lot_no_sed = 'Документ'
-
-
 def mouse_pos_click(x, y):
     mouse.position = (x, y)
     time.sleep(2)
@@ -35,7 +31,7 @@ def sed_error():  # Проверка вылета СЭД
 
     value_error_sed = pyperclip.paste()
 
-    if value_error_sed == false_error_sed:
+    if value_error_sed == 'Регистрация':
         return False
     else:
         return True
@@ -51,7 +47,7 @@ def lot_no_sed():  # Ошибка отсутствия лота в СЭД
 
     value_lot_no_sed = pyperclip.paste()
 
-    if value_lot_no_sed == true_lot_no_sed:
+    if value_lot_no_sed == 'Документ':
         return True
     else:
         return False

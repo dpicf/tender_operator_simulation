@@ -3,7 +3,7 @@ import glob
 import os
 import fitz
 import docx2txt
-from keywords import keywords_files
+from keywords import KEYWORDS_FILES
 from bs4 import BeautifulSoup
 from pynput.mouse import Button, Controller
 mouse = Controller()
@@ -53,7 +53,7 @@ def create_list_links(folder_name):  # извлечение линков и за
     file = open(f"/LOTS/{folder_name}/frame.html", encoding="utf8")
     soup = BeautifulSoup(file, "html.parser")
     for link in soup.find_all(attrs={"href": re.compile("^fdoc_")}):
-        list_links.append(f"address//{link.get('href')}")
+        list_links.append(f"http://sed.komus.net/{link.get('href')}")
 
 
 def download_docs(list_links):  # скачивание документов
@@ -67,7 +67,7 @@ def check_docs(folder_name):  # проверка файлов
     list_files = glob.glob(f"/LOTS/{folder_name}/*.*")
 
     def find_concurrence(text):
-        for phrase in keywords_files:
+        for phrase in KEYWORDS_FILES:
             if phrase in text:
                 pass  # написать письмо с отказом Наташе
 

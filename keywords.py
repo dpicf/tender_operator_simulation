@@ -1,6 +1,6 @@
-keywords_comment = ["тветственность"]
+KEYWORDS_COMMENT = ["тветственность"]
 
-keywords_files = {
+KEYWORDS_FILES = {
     "one_key": "value_one_key",
     "two_key": "value_two_key"
 }
