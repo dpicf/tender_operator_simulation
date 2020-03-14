@@ -1,9 +1,6 @@
-KEYWORDS_COMMENT = ["тветственность"]
+KEYWORDS_COMMENT = ["keyword1", "keyword2"]
 
-KEYWORDS_FILES = {
-    "one_key": "value_one_key",
-    "two_key": "value_two_key"
+keywords_files = {
+    "reject reason 1": ["keyword1", "keyword2", "keyword3"],
+    "reject reason 2": ["keyword1", "keyword2"],
 }
-
-
-

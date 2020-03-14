@@ -3,7 +3,7 @@ import glob
 import os
 import fitz
 import docx2txt
-from keywords import KEYWORDS_FILES
+from keywords import keywords_files
 from bs4 import BeautifulSoup
 from pynput.mouse import Button, Controller
 mouse = Controller()
@@ -44,32 +44,35 @@ def create_list_links(folder_name):  # извлечение линков и за
 
     # создание файла с кодом из фрейма
     os.mkdir(f"/LOTS/{folder_name}")  # создать папку с номером лота
-    frame = open(f"/LOTS/{folder_name}/frame.html", "w+")  # открыть файл с кодом страницы
+    frame = open(f"/LOTS/{folder_name}/frame.html", "w+", encoding="utf8")  # открыть файл с кодом страницы
     frame.write(pyperclip.paste())  # вставить в него код
     frame.close()  # сохранить файл
 
-    # извлечение ссылок с документами и запись их в массив
     list_links = []
+
+    # извлечение ссылок с документами и запись их в массив
     file = open(f"/LOTS/{folder_name}/frame.html", encoding="utf8")
     soup = BeautifulSoup(file, "html.parser")
     for link in soup.find_all(attrs={"href": re.compile("^fdoc_")}):
-        list_links.append(f"http://sed.komus.net/{link.get('href')}")
+        list_links.append(f"http://sed.komus.ru/{link.get('href')}")
+
+    return list_links
 
 
 def download_docs(list_links):  # скачивание документов
     for link in list_links:
         file_name = link.rsplit('/')[-1]  # извлечение имени файла
-        request = requests.get(link, allow_redirects=True)  # запрос содержимого файла
+        request = requests.get(link)  # запрос содержимого файла
         open(file_name, 'wb').write(request.content)  # создание файла
 
 
-def check_docs(folder_name):  # проверка файлов
+def check_docs_keywords(folder_name):  # проверка файлов
     list_files = glob.glob(f"/LOTS/{folder_name}/*.*")
 
-    def find_concurrence(text):
-        for phrase in KEYWORDS_FILES:
+    def find_keywords(text):
+        for phrase in keywords_files:
             if phrase in text:
-                pass  # написать письмо с отказом Наташе
+                return True
 
     for file in list_files:
         if "pdf" in file:
@@ -78,12 +81,14 @@ def check_docs(folder_name):  # проверка файлов
             while i_page < pdf.pageCount:
                 page = pdf.loadPage(i_page)
                 page_text = page.getText("text")
-                find_concurrence(page_text)
+                if find_keywords(page_text):
+                    return True
                 i_page += 1
 
         elif "docx" in file:
             all_text = docx2txt.process(file)
-            find_concurrence(all_text)
+            if find_keywords(all_text):
+                return True
 
         elif "doc" in file and "docx" not in file:
             with open(file) as file_in:
@@ -92,4 +97,5 @@ def check_docs(folder_name):  # проверка файлов
                         file_out.write(line)
             txt_text = open(f"{file}.txt", encoding="cp1251")
             doc_text = txt_text.read()
-            find_concurrence(doc_text)
+            if find_keywords(doc_text):
+                return True
