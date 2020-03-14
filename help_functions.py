@@ -55,10 +55,7 @@ def lot_no_sed():  # Ошибка отсутствия лота в СЭД
 
 def lot_opened_someone():
     mouse_pos_click(34, 305)  # на ссылку с номером лота
-
     time.sleep(7)  # Подождать пока прогрузится
-
     keyboard.press(Key.enter); keyboard.release(Key.enter)  # Enter
-
     time.sleep(7)  # Подождать пока прогрузится
 

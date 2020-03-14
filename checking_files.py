@@ -28,10 +28,8 @@ def opening_frame():  # открытие фрейма
 
 def create_list_links(folder_name):  # извлечение линков и запись их в массив
     opening_frame()
-
     mouse.position = (710, 17); time.sleep(2)  # закрытие вкладки с кодом
     mouse.click(Button.left, 1); time.sleep(2)
-
     opening_frame()
 
     with keyboard.pressed(Key.ctrl):  # выделить всё
@@ -44,7 +42,7 @@ def create_list_links(folder_name):  # извлечение линков и за
 
     # создание файла с кодом из фрейма
     os.mkdir(f"/LOTS/{folder_name}")  # создать папку с номером лота
-    frame = open(f"/LOTS/{folder_name}/frame.html", "w+", encoding="utf8")  # открыть файл с кодом страницы
+    frame = open(f"/LOTS/{folder_name}/frame.html", "w+", encoding="utf8")  # открыть файл для кода страницы
     frame.write(pyperclip.paste())  # вставить в него код
     frame.close()  # сохранить файл
 
@@ -59,11 +57,11 @@ def create_list_links(folder_name):  # извлечение линков и за
     return list_links
 
 
-def download_docs(list_links):  # скачивание документов
+def download_docs(folder_name, list_links):  # скачивание документов
     for link in list_links:
         file_name = link.rsplit('/')[-1]  # извлечение имени файла
         request = requests.get(link)  # запрос содержимого файла
-        open(file_name, 'wb').write(request.content)  # создание файла
+        open(f"/LOTS/{folder_name}/{file_name}", 'wb').write(request.content)  # создание файла
 
 
 def check_docs_keywords(folder_name):  # проверка файлов
@@ -76,7 +74,7 @@ def check_docs_keywords(folder_name):  # проверка файлов
 
     for file in list_files:
         if "pdf" in file:
-            pdf = fitz.open(file)
+            pdf = fitz.Document(file)
             i_page = 0
             while i_page < pdf.pageCount:
                 page = pdf.loadPage(i_page)

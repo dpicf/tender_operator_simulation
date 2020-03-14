@@ -3,7 +3,7 @@ mouse = Controller()
 from pynput.keyboard import Key, Controller
 keyboard = Controller()
 import time
-from base_functions import mouse_pos_click, begin_opening_lots, sed_error, lot_no_sed, lot_opened_someone
+from help_functions import mouse_pos_click, begin_opening_lots, sed_error, lot_no_sed, lot_opened_someone
 from lots_and_emails import create_lots_and_emails, get_current_lot
 from opening_lots import opening_lot, lot_performance
 
