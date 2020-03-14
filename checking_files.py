@@ -59,7 +59,7 @@ def create_list_links(folder_name):  # извлечение линков и за
 
 def download_docs(folder_name, list_links):  # скачивание документов
     for link in list_links:
-        file_name = link.rsplit('/')[-1]  # извлечение имени файла
+        file_name = link.split('/')[-1]  # извлечение имени файла
         request = requests.get(link)  # запрос содержимого файла
         open(f"/LOTS/{folder_name}/{file_name}", 'wb').write(request.content)  # создание файла
 
