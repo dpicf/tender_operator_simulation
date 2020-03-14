@@ -59,4 +59,3 @@ def lot_opened_someone():
     time.sleep(7)  # Подождать пока прогрузится
     keyboard.press(Key.enter); keyboard.release(Key.enter)  # Enter
     time.sleep(7)  # Подождать пока прогрузится
-

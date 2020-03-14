@@ -65,13 +65,15 @@ def download_docs(folder_name, list_links):  # скачивание докуме
         open(f"/LOTS/{folder_name}/{file_name}", 'wb').write(request.content)  # создание файла
 
 
-def check_docs_keywords(folder_name):  # проверка файлов
+def check_docs_keywords(folder_name):
+    download_docs(folder_name, create_list_links(folder_name))
     list_files = glob.glob(f"/LOTS/{folder_name}/*.*")
 
     def find_keywords(text):
-        for phrase in keywords_files:
-            if phrase in text:
-                return True
+        for keywords_key in list(keywords_files.keys()):
+            for keywords in keywords_files.get(keywords_key):
+                if keywords in text:
+                    return keywords_key
 
     for file in list_files:
         if "pdf" in file:
@@ -80,14 +82,14 @@ def check_docs_keywords(folder_name):  # проверка файлов
             while i_page < pdf.pageCount:
                 page = pdf.loadPage(i_page)
                 page_text = page.getText("text")
-                if find_keywords(page_text):
-                    return True
+                found_keywords = find_keywords(page_text)
+                if found_keywords:
+                    return found_keywords
                 i_page += 1
 
         elif "docx" in file:
             all_text = docx2txt.process(file)
-            if find_keywords(all_text):
-                return True
+            return find_keywords(all_text)
 
         elif "doc" in file and "docx" not in file:
             with open(file) as file_in:
@@ -96,5 +98,4 @@ def check_docs_keywords(folder_name):  # проверка файлов
                         file_out.write(line)
             txt_text = open(f"{file}.txt", encoding="cp1251")
             doc_text = txt_text.read()
-            if find_keywords(doc_text):
-                return True
+            return find_keywords(doc_text)

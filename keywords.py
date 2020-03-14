@@ -1,6 +1,6 @@
-KEYWORDS_COMMENT = ["keyword1", "keyword2"]
+KEYWORDS_COMMENT = ["keyword 6", "keyword 7"]
 
 keywords_files = {
-    "reject reason 1": ["keyword1", "keyword2", "keyword3"],
-    "reject reason 2": ["keyword1", "keyword2"],
+    "reject reason 1": ["keyword 1", "keyword 2", "keyword 3"],
+    "reject reason 2": ["keyword 4", "keyword 5"],
 }

@@ -1,7 +1,7 @@
 import time
 import pyperclip
 
-from pynput.mouse import Button, Controller
+from pynput.mouse import Controller
 mouse = Controller()
 from pynput.keyboard import Key, Controller
 keyboard = Controller()
@@ -35,8 +35,3 @@ def lot_performance():  # Исполнение лота (активно окно
 
     mouse_pos_click(34, 305)  # на ссылку с номером лота
     time.sleep(12)  # Подождать пока прогрузится
-
-
-
-
-

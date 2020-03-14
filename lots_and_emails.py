@@ -7,7 +7,7 @@ list_lots = []
 letters = {}
 
 
-def create_lots_and_emails(login, password):
+def create_lots_and_mails(login, password):
     imapper = easyimap.connect('imap.komus.ru', login, password)
     today = datetime.datetime.today()
     for mail_id in imapper.listids(limit=50):
