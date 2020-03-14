@@ -3,15 +3,16 @@ import glob
 import os
 import fitz
 import docx2txt
+import pyperclip
+import re
+import requests
+
 from keywords import keywords_files
 from bs4 import BeautifulSoup
 from pynput.mouse import Button, Controller
 mouse = Controller()
 from pynput.keyboard import Key, Controller
 keyboard = Controller()
-import pyperclip
-import re
-import requests
 
 
 def opening_frame():  # открытие фрейма

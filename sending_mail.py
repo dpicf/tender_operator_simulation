@@ -7,7 +7,7 @@ def check_comment(folder_name):  # проверка комментария на 
     soup = BeautifulSoup(frame, "html.parser")
     for keyword in KEYWORDS_COMMENT:
         if keyword in soup.text:
-            pass  # написать письмо с отказом в ГП и самому себе
+            return True
 
 
 def sending_mail_reject(rejection_reason, list_receivers):

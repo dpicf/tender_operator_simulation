@@ -1,10 +1,11 @@
+import time
+import pyperclip
+
 from pynput.mouse import Button, Controller
 mouse = Controller()
 from pynput.keyboard import Key, Controller
 keyboard = Controller()
 from help_functions import mouse_pos_click
-import time
-import pyperclip
 
 
 def opening_lot(num_lot):  # Открытие лота

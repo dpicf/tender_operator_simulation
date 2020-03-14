@@ -1,9 +1,10 @@
+import time
+import pyperclip
+
 from pynput.mouse import Button, Controller
 mouse = Controller()
 from pynput.keyboard import Key, Controller
 keyboard = Controller()
-import time
-import pyperclip
 
 
 def mouse_pos_click(x, y):
