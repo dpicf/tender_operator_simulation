@@ -1,10 +1,9 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 from bs4 import BeautifulSoup
 from keywords import KEYWORDS_COMMENT
-from lots_and_emails import letters
+from create_and_open_lots import letters
 
 
 def sending_mail_reject(login, password, reject_reason, folder_lot_name):
